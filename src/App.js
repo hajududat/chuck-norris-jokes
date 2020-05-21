@@ -3,18 +3,17 @@ import axios from "axios";
 
 function App() {
   const [data, setData] = useState({ value: [] });
-  const [randomJoke] = useState("random");
-  const [joke, setJoke] = useState("https://api.icndb.com/jokes/random");
+  const [url, setUrl] = useState("https://api.icndb.com/jokes/random");
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(joke);
+      const result = await axios(url);
 
       setData(result.data);
     };
 
     fetchData();
-  }, [joke]);
+  }, [url]);
 
   function handleClick(e) {
     e.preventDefault();
@@ -34,8 +33,7 @@ function App() {
             type="button"
             className="btn btn__primary"
             onClick={
-              (() => setJoke(`https://api.icndb.com/jokes/${randomJoke}`),
-              handleClick)
+              (() => setUrl(`https://api.icndb.com/jokes/random`), handleClick)
             }
           >
             Make Onions Cry
