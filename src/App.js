@@ -2,30 +2,29 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  const [data, setData] = useState({ value: [] });
-  const [randomJoke] = useState("random");
-  const [joke, setJoke] = useState("https://api.icndb.com/jokes/random");
-
+  const [data, setData] = useState();
+  const [refetch, setRefetch] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(joke);
-
-      setData(result.data);
+      const result = await axios("https://api.icndb.com/jokes/random");
+      try {
+        setData(result.data);
+      } catch(err) {
+        console.error(err);
+      }
+      setRefetch(false)
     };
-
-    fetchData();
-  }, [joke]);
-
-  function handleClick(e) {
-    e.preventDefault();
-    console.log("The button was clicked.");
-  }
+    if (refetch === true) {
+      fetchData();
+    }
+    
+  }, [refetch]);
 
   return (
     <div className="container">
       <div className="row">
         <div className="column">
-          <div className="card">{data.value.joke}</div>
+          <div className="card">{data ? data.value.joke.replace(/&quot;/g, '"') : "Loading..." }</div>
         </div>
       </div>
       <div className="row">
@@ -33,10 +32,7 @@ function App() {
           <button
             type="button"
             className="btn btn__primary"
-            onClick={
-              (() => setJoke(`https://api.icndb.com/jokes/${randomJoke}`),
-              handleClick)
-            }
+            onClick={() => { setRefetch(true) }}
           >
             Make Onions Cry
             <span role="img" aria-label="emoji">
