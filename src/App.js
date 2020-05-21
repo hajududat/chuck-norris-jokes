@@ -3,22 +3,19 @@ import axios from "axios";
 
 function App() {
   const [data, setData] = useState();
-  const [refetch, setRefetch] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios("https://api.icndb.com/jokes/random");
-      try {
-        setData(result.data);
-      } catch(err) {
-        console.error(err);
-      }
-      setRefetch(false)
-    };
-    if (refetch === true) {
-      fetchData();
+  
+  const fetchData = async () => {
+    const result = await axios("https://api.icndb.com/jokes/random");
+    try {
+      setData(result.data);
+    } catch (err) {
+      console.error(err);
     }
-    
-  }, [refetch]);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="container">
@@ -32,7 +29,7 @@ function App() {
           <button
             type="button"
             className="btn btn__primary"
-            onClick={() => { setRefetch(true) }}
+            onClick={ fetchData }
           >
             Make Onions Cry
             <span role="img" aria-label="emoji">
