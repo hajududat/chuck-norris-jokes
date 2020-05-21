@@ -9,6 +9,10 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
+  // background: linear-gradient(#0069d9, black),
+  //   url(./images/chuck-norris-facts-.jpg) right bottom no-repeat;
+  // background-size: cover;
+  // background-blend-mode: screen;
 }
 
 .container {
@@ -66,7 +70,7 @@ body {
   &:hover,
   &:active {
     background-color: #0069d9;
-    border-color: #0062cc;
+    border-color: #0069d9;
   }
 
   &__primary {
@@ -74,4 +78,8 @@ body {
     background-color: #007bff;
     border-color: #007bff;
   }
+}
+
+span {
+  margin: 0 0.625rem;
 }
