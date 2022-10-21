@@ -3,9 +3,9 @@ import axios from "axios";
 
 function App() {
   const [data, setData] = useState();
-  
+
   const fetchData = async () => {
-    const result = await axios("https://api.icndb.com/jokes/random");
+    const result = await axios("https://api.chucknorris.io/jokes/random");
     try {
       setData(result.data);
     } catch (err) {
@@ -21,7 +21,9 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="column">
-          <div className="card">{data ? data.value.joke.replace(/&quot;/g, '"') : "Loading..." }</div>
+          <div className="card">
+            {data ? data.value.replace(/&quot;/g, '"') : "Loading..."}
+          </div>
         </div>
       </div>
       <div className="row">
@@ -29,7 +31,7 @@ function App() {
           <button
             type="button"
             className="btn btn__primary"
-            onClick={ fetchData }
+            onClick={fetchData}
           >
             Make Onions Cry
             <span role="img" aria-label="emoji">
